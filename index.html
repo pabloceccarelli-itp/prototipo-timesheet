@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Novedades - Timesheet</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="avatar-container">
+                <div class="avatar">PC</div>
+            </div>
+            <div class="menu-icon">
+                <span class="material-icons">menu</span>
+            </div>
+            <div class="nav-icons">
+                <div class="nav-item">
+                    <i class="material-icons">person</i>
+                    <span class="tooltip">Portal de la empresa</span>
+                </div>
+                <div class="nav-item active">
+                    <i class="material-icons">calendar_today</i>
+                    <span class="tooltip">Timesheet</span>
+                </div>
+                <div class="nav-item">
+                    <i class="material-icons">psychology</i>
+                    <span class="tooltip">Mis habilidades</span>
+                </div>
+                <div class="nav-item">
+                    <i class="material-icons">exit_to_app</i>
+                    <span class="tooltip">Cerrar sesión</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-left">
+                    <h3 class="header-title">Portal de novedades</h3>
+                    <div class="date-selector-container">
+                        <input type="month" id="monthSelector" class="date-input" value="2025-11">
+                        <button class="download-btn">
+                            <i class="material-icons">download</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div>
+                        <div class="logo-container">
+                            <div class="logo-circle">IT</div>
+                            <div class="logo-text">Patagonia</div>
+                        </div>
+                        <div class="hours-summary">
+                            <p class="hours-laborables">Horas laborables: <span id="horasLaborables">144</span></p>
+                            <p class="hours-cargadas">
+                                <i class="material-icons eye-icon">visibility</i>
+                                Horas cargadas: <span id="horasCargadas">8</span>
+                            </p>
+                            <p class="hours-pendientes">Horas pendientes: <span id="horasPendientes">136</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar Container -->
+            <div class="calendar-container">
+                <div class="calendar" id="calendar">
+                    <div class="calendar-header">
+                        <div class="calendar-header-day">lun.</div>
+                        <div class="calendar-header-day">mar.</div>
+                        <div class="calendar-header-day">mié.</div>
+                        <div class="calendar-header-day">jue.</div>
+                        <div class="calendar-header-day">vie.</div>
+                        <div class="calendar-header-day">sáb.</div>
+                        <div class="calendar-header-day">dom.</div>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar days will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container">
+        <div class="chatbot-widget" id="chatbotWidget">
+            <div class="chatbot-header">
+                <h3>Asistente de Timesheet</h3>
+                <button class="chatbot-close" id="chatbotClose">
+                    <i class="material-icons">close</i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot">
+                    ¡Hola! 👋 Soy tu asistente de Timesheet. Estoy aquí para ayudarte a gestionar tus horas de trabajo.
+                    ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+            <div class="chatbot-input-container">
+                <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Escribe tu mensaje...">
+                <button class="chatbot-send" id="chatbotSend">
+                    <i class="material-icons">send</i>
+                </button>
+            </div>
+        </div>
+        <button class="chatbot-button" id="chatbotButton">
+            <i class="material-icons">chat</i>
+        </button>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="calendar.js"></script>
+    <script src="chatbot.js"></script>
+    <script src="/user-stories/user-story-1.js"></script>
+    <script src="/user-stories/user-story-2.js"></script>
+
+</body>
+
+</html>
