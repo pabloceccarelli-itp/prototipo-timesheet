@@ -142,7 +142,6 @@ function renderCalendar(year, month) {
             // Determinar si es fin de semana
             // day = 0 (lunes), 1 (martes), 2 (miércoles), 3 (jueves), 4 (viernes), 5 (sábado), 6 (domingo)
             if (day === 5 || day === 6) {
-                console.log('Fin de semana: ', day);
                 dayDiv.classList.add('weekend');
             } else {
                 dayDiv.classList.add('weekday');
