@@ -83,6 +83,10 @@ function processFillRestOfMonthCommand(text) {
 					sourceTasks.forEach((src) => {
 						const srcIndex = thisWeek.indexOf(src.fecha_inicio);
 						if (srcIndex === i) {
+							// Verificar si es feriado
+							if (hasHolidayOnDate(targetStr)) {
+								return;
+							}
 							const existing = findExistingTask(src.proyecto, src.tarea, targetStr);
 							if (existing) {
 								// No sobreescribir si ya existe con horas > 0; mantener

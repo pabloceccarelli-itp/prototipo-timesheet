@@ -594,6 +594,14 @@ function getWeekdaysDates() {
 }
 
 
+// Función para verificar si hay un feriado en una fecha
+function hasHolidayOnDate(dateString) {
+    return tasksDatabase.some(task => 
+        task.fecha_inicio === dateString && 
+        task.id_usuario === 0
+    );
+}
+
 // Función para crear tarea
 function createTask(proyecto, tarea, fecha, horas, detalle = '') {
     return {
@@ -611,6 +619,16 @@ function createTask(proyecto, tarea, fecha, horas, detalle = '') {
 
 // Función para agregar tarea a la base de datos
 function addTaskToDatabase(task) {
+    // Verificar si hay feriado antes de agregar
+    if (hasHolidayOnDate(task.fecha_inicio)) {
+        const holiday = tasksDatabase.find(t => 
+            t.fecha_inicio === task.fecha_inicio && 
+            t.id_usuario === 0
+        );
+        const fechaDisplay = formatDateForDisplay(task.fecha_inicio);
+        addMessage(`❌ No se puede cargar horas en ${fechaDisplay} porque es un feriado: "${holiday.tarea}".`);
+        return false;
+    }
     tasksDatabase.push(task);
     // Re-renderizar calendario si estamos en el mes correcto
     const taskDate = new Date(task.fecha_inicio + 'T00:00:00');
@@ -622,6 +640,7 @@ function addTaskToDatabase(task) {
             updateHoursSummary(currentYear, currentMonth);
         }
     }
+    return true;
 }
 
 

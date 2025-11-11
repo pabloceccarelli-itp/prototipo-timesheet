@@ -142,11 +142,14 @@ function processCommand(text) {
             confirmMessage,
             function () {
                 const task = createTask(dailyCommand.proyecto, dailyCommand.tarea, dailyCommand.fecha, dailyCommand.horas);
-                addTaskToDatabase(task);
+                const added = addTaskToDatabase(task);
 
-                setTimeout(() => {
-                    addMessage(`✅ Perfecto! He cargado ${dailyCommand.horas}h de "${dailyCommand.tarea}" al proyecto "${dailyCommand.proyecto}" para ${dailyCommand.fechaRef} (${fechaDisplay}).`);
-                }, 500);
+                if (added) {
+                    setTimeout(() => {
+                        addMessage(`✅ Perfecto! He cargado ${dailyCommand.horas}h de "${dailyCommand.tarea}" al proyecto "${dailyCommand.proyecto}" para ${dailyCommand.fechaRef} (${fechaDisplay}).`);
+                    }, 500);
+                }
+                // Si no se agregó (por feriado), el mensaje de error ya se mostró en addTaskToDatabase
             },
             function () {
                 addMessage('Operación cancelada. ¿Hay algo más en lo que pueda ayudarte?');
@@ -167,10 +170,17 @@ function processCommand(text) {
         showConfirmation(
             confirmMessage,
             function () {
-                // Agregar todas las tareas primero
+                // Agregar todas las tareas primero, omitiendo feriados
+                let created = 0;
+                let skipped = 0;
                 blockCommand.fechas.forEach((fecha) => {
+                    if (hasHolidayOnDate(fecha)) {
+                        skipped++;
+                        return;
+                    }
                     const task = createTask(blockCommand.proyecto, blockCommand.tarea, fecha, blockCommand.horas);
                     tasksDatabase.push(task);
+                    created++;
                 });
 
                 // Re-renderizar calendario una sola vez después de agregar todas las tareas
@@ -184,7 +194,13 @@ function processCommand(text) {
                 }
 
                 setTimeout(() => {
-                    addMessage(`✅ Perfecto! He cargado ${blockCommand.horas}h de "${blockCommand.tarea}" al proyecto "${blockCommand.proyecto}" para ${datesCount} días (de ${startDayDisplay} a ${endDayDisplay}).`);
+                    let message = `✅ Perfecto! He cargado ${blockCommand.horas}h de "${blockCommand.tarea}" al proyecto "${blockCommand.proyecto}" para ${created} día${created !== 1 ? 's' : ''}`;
+                    if (skipped > 0) {
+                        message += `. Se omitieron ${skipped} día${skipped !== 1 ? 's' : ''} por ser feriado${skipped !== 1 ? 's' : ''}.`;
+                    } else {
+                        message += ` (de ${startDayDisplay} a ${endDayDisplay}).`;
+                    }
+                    addMessage(message);
                 }, 500);
             },
             function () {

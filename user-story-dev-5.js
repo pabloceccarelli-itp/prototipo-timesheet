@@ -90,14 +90,22 @@ function processDuplicateLastWeekCommand(text) {
 		confirmMessage,
 		function () {
 			// Mapear por índice de día dentro de la semana (0..6)
+			let copied = 0;
+			let skipped = 0;
 			sourceTasks.forEach((task) => {
 				const dayIndex = lastWeek.indexOf(task.fecha_inicio);
 				if (dayIndex >= 0) {
 					const targetDate = thisWeek[dayIndex];
+					// Verificar si es feriado
+					if (hasHolidayOnDate(targetDate)) {
+						skipped++;
+						return;
+					}
 					const existing = findExistingTask(task.proyecto, task.tarea, targetDate);
 					if (existing) {
 						// Reemplazar horas
 						existing.horas = task.horas;
+						copied++;
 					} else {
 						const newTask = createTask(
 							task.proyecto,
@@ -107,6 +115,7 @@ function processDuplicateLastWeekCommand(text) {
 							task.detalle
 						);
 						tasksDatabase.push(newTask);
+						copied++;
 					}
 				}
 			});
@@ -123,9 +132,11 @@ function processDuplicateLastWeekCommand(text) {
 			}
 
 			setTimeout(() => {
-				addMessage(
-					`✅ Listo. Copié las horas de la semana pasada para el proyecto "${parsed.proyecto}" a esta semana.`
-				);
+				let message = `✅ Listo. Copié ${copied} entrada${copied !== 1 ? 's' : ''} de la semana pasada para el proyecto "${parsed.proyecto}" a esta semana.`;
+				if (skipped > 0) {
+					message += ` Se omitieron ${skipped} día${skipped !== 1 ? 's' : ''} por ser feriado${skipped !== 1 ? 's' : ''}.`;
+				}
+				addMessage(message);
 			}, 500);
 		},
 		function () {
