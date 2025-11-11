@@ -208,5 +208,19 @@ function processCommand(text) {
         }
     }
 
+    // Intentar procesar duplicado semana pasada -> esta semana
+    if (typeof processDuplicateLastWeekCommand === 'function') {
+        if (processDuplicateLastWeekCommand(text)) {
+            return true;
+        }
+    }
+
+    // Intentar procesar completar resto del mes con esta semana
+    if (typeof processFillRestOfMonthCommand === 'function') {
+        if (processFillRestOfMonthCommand(text)) {
+            return true;
+        }
+    }
+
     return false;
 }
