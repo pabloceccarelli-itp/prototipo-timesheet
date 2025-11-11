@@ -194,5 +194,19 @@ function processCommand(text) {
         return true;
     }
 
+    // Intentar procesar comando de edición
+    if (typeof processEditCommand === 'function') {
+        if (processEditCommand(text)) {
+            return true;
+        }
+    }
+
+    // Intentar procesar comando de eliminación
+    if (typeof processDeleteCommand === 'function') {
+        if (processDeleteCommand(text)) {
+            return true;
+        }
+    }
+
     return false;
 }
