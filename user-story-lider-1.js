@@ -2,17 +2,18 @@
 // Ejemplos:
 // “Mostrame las horas de Juan en proyecto Alfa esta semana.”
 // “Mostrame las horas de Juan y María en proyecto Alfa esta semana.”
+// “Mostrame las horas de Juan en proyecto Alfa la semana pasada.”
+// “Mostrame las horas de Juan en proyecto Alfa la semana que viene.”
 
-// Obtiene inicio (lunes) y fin (domingo) de la semana actual en formato YYYY-MM-DD
-function getLeaderThisWeekRange() {
-	// Basado en la zona local del navegador
-	const today = new Date();
-	const dayOfWeek = today.getDay(); // 0 = domingo, 1 = lunes, ...
-	const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+// Obtiene el rango de una semana (lunes a domingo) para una fecha de referencia
+function getWeekRangeForDate(referenceDate) {
+	const ref = new Date(referenceDate);
+	const day = ref.getDay(); // 0 = domingo, 1 = lunes, ...
+	const mondayOffset = day === 0 ? -6 : 1 - day;
 
-	const monday = new Date(today);
+	const monday = new Date(ref);
 	monday.setHours(0, 0, 0, 0);
-	monday.setDate(today.getDate() + mondayOffset);
+	monday.setDate(ref.getDate() + mondayOffset);
 
 	const sunday = new Date(monday);
 	sunday.setDate(monday.getDate() + 6);
@@ -22,18 +23,63 @@ function getLeaderThisWeekRange() {
 	return { start, end };
 }
 
+// Obtiene inicio (lunes) y fin (domingo) de la semana actual
+function getLeaderThisWeekRange() {
+	const today = new Date();
+	return getWeekRangeForDate(today);
+}
+
+// Obtiene inicio (lunes) y fin (domingo) de la semana pasada
+function getLeaderLastWeekRange() {
+	const today = new Date();
+	const thisWeek = getWeekRangeForDate(today);
+	const lastWeekMonday = new Date(thisWeek.start + 'T00:00:00');
+	lastWeekMonday.setDate(lastWeekMonday.getDate() - 7);
+	return getWeekRangeForDate(lastWeekMonday);
+}
+
+// Obtiene inicio (lunes) y fin (domingo) de la semana que viene
+function getLeaderNextWeekRange() {
+	const today = new Date();
+	const thisWeek = getWeekRangeForDate(today);
+	const nextWeekMonday = new Date(thisWeek.start + 'T00:00:00');
+	nextWeekMonday.setDate(nextWeekMonday.getDate() + 7);
+	return getWeekRangeForDate(nextWeekMonday);
+}
+
 // Parsea consultas del líder tipo: "Mostrame las horas de Juan y María en proyecto Alfa esta semana"
+// Acepta: "esta semana", "la semana pasada", "semana pasada", "la semana que viene", "semana que viene"
 function parseLeaderQuery(text) {
 	const t = text.trim();
 
-	// Aceptar "Mostrame" o "Muestrame" (variación sin tilde), "las horas de ... en proyecto ... esta semana"
-	// Captura lista de nombres y proyecto
-	const regex = /m(ue|o)strame\s+las\s+horas\s+de\s+(.+?)\s+en\s+proyecto\s+(.+?)\s+esta\s+semana\.?$/i;
-	const m = t.match(regex);
-	if (!m) return null;
+	// Patrones para diferentes períodos
+	const patterns = [
+		// "esta semana"
+		/m(ue|o)strame\s+las\s+horas\s+de\s+(.+?)\s+en\s+proyecto\s+(.+?)\s+esta\s+semana\.?$/i,
+		// "la semana pasada" o "semana pasada"
+		/m(ue|o)strame\s+las\s+horas\s+de\s+(.+?)\s+en\s+proyecto\s+(.+?)\s+(?:la\s+)?semana\s+pasada\.?$/i,
+		// "la semana que viene" o "semana que viene"
+		/m(ue|o)strame\s+las\s+horas\s+de\s+(.+?)\s+en\s+proyecto\s+(.+?)\s+(?:la\s+)?semana\s+que\s+viene\.?$/i
+	];
 
-	const rawNames = m[2].trim();
-	const proyecto = m[3].trim();
+	let match = null;
+	let periodo = null;
+
+	// Intentar cada patrón
+	for (let i = 0; i < patterns.length; i++) {
+		match = t.match(patterns[i]);
+		if (match) {
+			if (i === 0) periodo = 'esta semana';
+			else if (i === 1) periodo = 'semana pasada';
+			else if (i === 2) periodo = 'semana que viene';
+			break;
+		}
+	}
+
+	if (!match || !periodo) return null;
+
+	const rawNames = match[2].trim();
+	const proyecto = match[3].trim();
 
 	// Separar por " y " y por comas
 	const names = rawNames
@@ -45,7 +91,8 @@ function parseLeaderQuery(text) {
 
 	return {
 		names,
-		proyecto
+		proyecto,
+		periodo
 	};
 }
 
@@ -90,7 +137,7 @@ function summarizeTasksByUser(tasks) {
 }
 
 // Crea mensaje HTML para el chatbot con el resumen
-function buildLeaderSummaryMessage({ proyecto, start, end, namesRequested, tasks }) {
+function buildLeaderSummaryMessage({ proyecto, start, end, periodo, namesRequested, tasks }) {
 	const { byUser, total } = summarizeTasksByUser(tasks);
 	const rango = `${formatDateForDisplay(start)} al ${formatDateForDisplay(end)}`;
 
@@ -103,7 +150,11 @@ function buildLeaderSummaryMessage({ proyecto, start, end, namesRequested, tasks
 		return `• ${displayName}: ${hs}h`;
 	});
 
-	const header = `Resumen de horas en proyecto "${proyecto}" (${rango}):`;
+	// Mostrar período en el header
+	const periodoDisplay = periodo === 'esta semana' ? 'esta semana' : 
+	                       periodo === 'semana pasada' ? 'la semana pasada' : 
+	                       'la semana que viene';
+	const header = `Resumen de horas en proyecto "${proyecto}" (${periodoDisplay}, ${rango}):`;
 	const totalLine = `Total: ${total}h`;
 
 	// Sugerir descarga
@@ -147,12 +198,26 @@ function downloadLeaderCSV(filename, rows) {
 	URL.revokeObjectURL(url);
 }
 
+// Obtiene el rango de fechas según el período especificado
+function getDateRangeForPeriod(periodo) {
+	switch (periodo) {
+		case 'esta semana':
+			return getLeaderThisWeekRange();
+		case 'semana pasada':
+			return getLeaderLastWeekRange();
+		case 'semana que viene':
+			return getLeaderNextWeekRange();
+		default:
+			return getLeaderThisWeekRange(); // Por defecto, esta semana
+	}
+}
+
 // Procesa la consulta del líder y responde en el chatbot con botón de descarga
 function processLeaderHoursCommand(text) {
 	const parsed = parseLeaderQuery(text);
 	if (!parsed) return false;
 
-	const { start, end } = getLeaderThisWeekRange();
+	const { start, end } = getDateRangeForPeriod(parsed.periodo);
 	const nameToIds = buildUserNameToIdsMap();
 
 	// Resolver ids por cada nombre solicitado
@@ -174,6 +239,7 @@ function processLeaderHoursCommand(text) {
 		proyecto: parsed.proyecto,
 		start,
 		end,
+		periodo: parsed.periodo,
 		namesRequested,
 		tasks: filtered
 	});

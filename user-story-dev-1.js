@@ -245,5 +245,12 @@ function processCommand(text) {
 		}
 	}
 
+	// Intentar procesar consulta de líder: resumen del equipo en un proyecto
+	if (typeof processLeaderTeamCommand === 'function') {
+		if (processLeaderTeamCommand(text)) {
+			return true;
+		}
+	}
+
     return false;
 }
