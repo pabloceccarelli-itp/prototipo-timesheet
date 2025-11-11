@@ -539,9 +539,17 @@ function updateHoursSummary(year, month) {
     for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month - 1, day);
         const dayOfWeek = date.getDay();
-        if (dayOfWeek !== 0 && dayOfWeek !== 6) {
-            laborableDays++;
-        }
+        
+        // Excluir fines de semana
+        if (dayOfWeek === 0 || dayOfWeek === 6) continue;
+        
+        // Verificar si hay un feriado (id_usuario === 0) en este día
+        const dateString = formatDate(year, month, day);
+        const tasksForDay = getTasksForDate(dateString);
+        const isNonLaborable = tasksForDay.some(t => t && t.id_usuario === 0);
+        if (isNonLaborable) continue;
+        
+        laborableDays++;
     }
 
     const horasLaborables = laborableDays * 8;

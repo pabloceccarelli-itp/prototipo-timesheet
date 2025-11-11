@@ -252,5 +252,12 @@ function processCommand(text) {
 		}
 	}
 
+	// Intentar procesar consulta de líder: detectar horas faltantes
+	if (typeof processLeaderMissingHoursCommand === 'function') {
+		if (processLeaderMissingHoursCommand(text)) {
+			return true;
+		}
+	}
+
     return false;
 }
