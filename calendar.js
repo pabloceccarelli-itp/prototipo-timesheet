@@ -140,8 +140,8 @@ function renderCalendar(year, month) {
             dayDiv.className = 'calendar-day';
 
             // Determinar si es fin de semana
-            const dayOfWeek = (startDay + dayIndex) % 7;
-            if (dayOfWeek === 3 || dayOfWeek === 4) {
+            // day = 0 (lunes), 1 (martes), 2 (miércoles), 3 (jueves), 4 (viernes), 5 (sábado), 6 (domingo)
+            if (day === 5 || day === 6) {
                 dayDiv.classList.add('weekend');
             } else {
                 dayDiv.classList.add('weekday');
