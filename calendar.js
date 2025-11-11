@@ -142,6 +142,7 @@ function renderCalendar(year, month) {
             // Determinar si es fin de semana
             // day = 0 (lunes), 1 (martes), 2 (miércoles), 3 (jueves), 4 (viernes), 5 (sábado), 6 (domingo)
             if (day === 5 || day === 6) {
+                console.log('Fin de semana: ', day);
                 dayDiv.classList.add('weekend');
             } else {
                 dayDiv.classList.add('weekday');
@@ -266,17 +267,17 @@ function getWeekdaysDates() {
     const today = new Date();
     const dayOfWeek = today.getDay(); // 0 = domingo, 1 = lunes, etc.
     const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // Ajustar para que lunes sea el primer día
-    
+
     const monday = new Date(today);
     monday.setDate(today.getDate() + mondayOffset);
-    
+
     const weekdays = [];
     for (let i = 0; i < 5; i++) {
         const date = new Date(monday);
         date.setDate(monday.getDate() + i);
         weekdays.push(formatDate(date.getFullYear(), date.getMonth() + 1, date.getDate()));
     }
-    
+
     return weekdays;
 }
 
