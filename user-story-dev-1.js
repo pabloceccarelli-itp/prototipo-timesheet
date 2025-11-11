@@ -259,5 +259,12 @@ function processCommand(text) {
 		}
 	}
 
+	// Intentar procesar consulta de líder: historial de colaborador
+	if (typeof processLeaderHistoryCommand === 'function') {
+		if (processLeaderHistoryCommand(text)) {
+			return true;
+		}
+	}
+
     return false;
 }

@@ -355,7 +355,69 @@ let tasksDatabase = [
         detalle: "Ajustes de accesibilidad"
     }
     // --- FIN DE NUEVAS TAREAS ---
-];
+    ,{
+        id_tarea: 1,
+        id_usuario: 7,
+        usuario: "Pablo",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-10-02",
+        fecha_fin: "2025-10-02",
+        horas: 8,
+        detalle: "Análisis de requerimientos módulo A"
+    },
+    {
+        id_tarea: 2,
+        id_usuario: 7,
+        usuario: "Pablo",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-10-09",
+        fecha_fin: "2025-10-09",
+        horas: 8,
+        detalle: "Análisis de requerimientos módulo B"
+    },
+    {
+        id_tarea: 3,
+        id_usuario: 7,
+        usuario: "Pablo",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-10-16",
+        fecha_fin: "2025-10-16",
+        horas: 8,
+        detalle: "Revisión de documentación módulo A"
+    },
+    {
+        id_tarea: 4,
+        id_usuario: 7,
+        usuario: "Pablo",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-10-23",
+        fecha_fin: "2025-10-23",
+        horas: 8,
+        detalle: "Reunión con equipo de desarrollo"
+    },
+    {
+        id_tarea: 5,
+        id_usuario: 7,
+        usuario: "Pablo",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-10-30",
+        fecha_fin: "2025-10-30",
+        horas: 8,
+        detalle: "Informe final de requerimientos"
+    }
+]
+
+;
 
 // Estado del calendario
 let currentMonth = 11; // Noviembre
@@ -530,25 +592,25 @@ function updateHoursSummary(year, month) {
         const dateString = formatDate(year, month, day);
         const tasks = getTasksForDate(dateString)
             .filter(task => task.id_usuario === 1);
-    
+
         totalHours += tasks.reduce((sum, task) => sum + task.horas, 0);
-    }    
+    }
 
     // Calcular horas laborables (días laborables * 8 horas)
     let laborableDays = 0;
     for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month - 1, day);
         const dayOfWeek = date.getDay();
-        
+
         // Excluir fines de semana
         if (dayOfWeek === 0 || dayOfWeek === 6) continue;
-        
+
         // Verificar si hay un feriado (id_usuario === 0) en este día
         const dateString = formatDate(year, month, day);
         const tasksForDay = getTasksForDate(dateString);
         const isNonLaborable = tasksForDay.some(t => t && t.id_usuario === 0);
         if (isNonLaborable) continue;
-        
+
         laborableDays++;
     }
 
@@ -604,8 +666,8 @@ function getWeekdaysDates() {
 
 // Función para verificar si hay un feriado en una fecha
 function hasHolidayOnDate(dateString) {
-    return tasksDatabase.some(task => 
-        task.fecha_inicio === dateString && 
+    return tasksDatabase.some(task =>
+        task.fecha_inicio === dateString &&
         task.id_usuario === 0
     );
 }
@@ -629,8 +691,8 @@ function createTask(proyecto, tarea, fecha, horas, detalle = '') {
 function addTaskToDatabase(task) {
     // Verificar si hay feriado antes de agregar
     if (hasHolidayOnDate(task.fecha_inicio)) {
-        const holiday = tasksDatabase.find(t => 
-            t.fecha_inicio === task.fecha_inicio && 
+        const holiday = tasksDatabase.find(t =>
+            t.fecha_inicio === task.fecha_inicio &&
             t.id_usuario === 0
         );
         const fechaDisplay = formatDateForDisplay(task.fecha_inicio);
