@@ -3,6 +3,7 @@ let tasksDatabase = [
     {
         id_tarea: 1,
         id_usuario: 1,
+        usuario: "Daniel",
         centro_de_costo: "IT",
         proyecto: "Alfa",
         tarea: "Planificación",
@@ -14,6 +15,7 @@ let tasksDatabase = [
     {
         id_tarea: 2,
         id_usuario: 1,
+        usuario: "Daniel",
         centro_de_costo: "IT",
         proyecto: "Alfa",
         tarea: "Testing/Pruebas",
@@ -25,6 +27,7 @@ let tasksDatabase = [
     {
         id_tarea: 3,
         id_usuario: 0,
+        usuario: null,
         centro_de_costo: "HR",
         proyecto: "Administración",
         tarea: "Puente turístico no laborable",
@@ -36,6 +39,7 @@ let tasksDatabase = [
     {
         id_tarea: 4,
         id_usuario: 0,
+        usuario: null,
         centro_de_costo: "HR",
         proyecto: "Administración",
         tarea: "Día de la Soberanía Nacional",
@@ -43,7 +47,314 @@ let tasksDatabase = [
         fecha_fin: "2025-11-24",
         horas: 0,
         detalle: "Feriado nacional"
+    },
+    // --- INICIO DE NUEVAS TAREAS ---
+    // Tareas de Juan (id: 2)
+    {
+        id_tarea: 5,
+        id_usuario: 2,
+        usuario: "Juan",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-11-11",
+        fecha_fin: "2025-11-11",
+        horas: 8,
+        detalle: "Análisis de requerimientos módulo A"
+    },
+    {
+        id_tarea: 6,
+        id_usuario: 2,
+        usuario: "Juan",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Desarrollo",
+        fecha_inicio: "2025-11-12",
+        fecha_fin: "2025-11-12",
+        horas: 8,
+        detalle: "Desarrollo backend API"
+    },
+    {
+        id_tarea: 7,
+        id_usuario: 2,
+        usuario: "Juan",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Desarrollo",
+        fecha_inicio: "2025-11-13",
+        fecha_fin: "2025-11-13",
+        horas: 6,
+        detalle: "Corrección de bugs"
+    },
+    {
+        id_tarea: 8,
+        id_usuario: 2,
+        usuario: "Juan",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Implementación",
+        fecha_inicio: "2025-11-14",
+        fecha_fin: "2025-11-14",
+        horas: 4,
+        detalle: "Deploy en ambiente Q&A"
+    },
+    {
+        id_tarea: 9,
+        id_usuario: 2,
+        usuario: "Juan",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-11-17",
+        fecha_fin: "2025-11-17",
+        horas: 8,
+        detalle: "Revisión de GAPs funcional"
+    },
+    // Tareas de María (id: 3)
+    {
+        id_tarea: 10,
+        id_usuario: 3,
+        usuario: "María",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-11-11",
+        fecha_fin: "2025-11-11",
+        horas: 8,
+        detalle: "Análisis funcional módulo B"
+    },
+    {
+        id_tarea: 11,
+        id_usuario: 3,
+        usuario: "María",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Desarrollo",
+        fecha_inicio: "2025-11-12",
+        fecha_fin: "2025-11-12",
+        horas: 8,
+        detalle: "Desarrollo frontend"
+    },
+    {
+        id_tarea: 12,
+        id_usuario: 3,
+        usuario: "María",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Implementación",
+        fecha_inicio: "2025-11-13",
+        fecha_fin: "2025-11-13",
+        horas: 8,
+        detalle: "Pase a producción release 1.2"
+    },
+    {
+        id_tarea: 13,
+        id_usuario: 3,
+        usuario: "María",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Desarrollo",
+        fecha_inicio: "2025-11-14",
+        fecha_fin: "2025-11-14",
+        horas: 8,
+        detalle: "Pruebas unitarias"
+    },
+    {
+        id_tarea: 14,
+        id_usuario: 3,
+        usuario: "María",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-11-17",
+        fecha_fin: "2025-11-17",
+        horas: 4,
+        detalle: "Reunión de relevamiento con cliente"
+    },
+    // Tareas de Nicolás (id: 4)
+    {
+        id_tarea: 15,
+        id_usuario: 4,
+        usuario: "Nicolás",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Desarrollo",
+        fecha_inicio: "2025-11-11",
+        fecha_fin: "2025-11-11",
+        horas: 8,
+        detalle: "Desarrollo integración API externa"
+    },
+    {
+        id_tarea: 16,
+        id_usuario: 4,
+        usuario: "Nicolás",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Desarrollo",
+        fecha_inicio: "2025-11-12",
+        fecha_fin: "2025-11-12",
+        horas: 8,
+        detalle: "Refactor de código"
+    },
+    {
+        id_tarea: 17,
+        id_usuario: 4,
+        usuario: "Nicolás",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Implementación",
+        fecha_inicio: "2025-11-13",
+        fecha_fin: "2025-11-13",
+        horas: 4,
+        detalle: "Configuración de servidor"
+    },
+    {
+        id_tarea: 18,
+        id_usuario: 4,
+        usuario: "Nicolás",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-11-14",
+        fecha_fin: "2025-11-14",
+        horas: 8,
+        detalle: "Definición de arquitectura"
+    },
+    {
+        id_tarea: 19,
+        id_usuario: 4,
+        usuario: "Nicolás",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Desarrollo",
+        fecha_inicio: "2025-11-17",
+        fecha_fin: "2025-11-17",
+        horas: 8,
+        detalle: "Desarrollo módulo C"
+    },
+    // Tareas de Natalia (id: 5)
+    {
+        id_tarea: 20,
+        id_usuario: 5,
+        usuario: "Natalia",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-11-18",
+        fecha_fin: "2025-11-18",
+        horas: 8,
+        detalle: "Análisis de base de datos"
+    },
+    {
+        id_tarea: 21,
+        id_usuario: 5,
+        usuario: "Natalia",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Desarrollo",
+        fecha_inicio: "2025-11-19",
+        fecha_fin: "2025-11-19",
+        horas: 8,
+        detalle: "Creación de scripts de migración"
+    },
+    {
+        id_tarea: 22,
+        id_usuario: 5,
+        usuario: "Natalia",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Desarrollo",
+        fecha_inicio: "2025-11-20",
+        fecha_fin: "2025-11-20",
+        horas: 8,
+        detalle: "Optimización de consultas SQL"
+    },
+    {
+        id_tarea: 23,
+        id_usuario: 5,
+        usuario: "Natalia",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Implementación",
+        fecha_inicio: "2025-11-25",
+        fecha_fin: "2025-11-25",
+        horas: 6,
+        detalle: "Ejecución de migración de datos"
+    },
+    {
+        id_tarea: 24,
+        id_usuario: 5,
+        usuario: "Natalia",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-11-26",
+        fecha_fin: "2025-11-26",
+        horas: 8,
+        detalle: "Revisión de modelo entidad-relación"
+    },
+    // Tareas de Borja (id: 6)
+    {
+        id_tarea: 25,
+        id_usuario: 6,
+        usuario: "Borja",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Desarrollo",
+        fecha_inicio: "2025-11-18",
+        fecha_fin: "2025-11-18",
+        horas: 8,
+        detalle: "Maquetación HTML/CSS"
+    },
+    {
+        id_tarea: 26,
+        id_usuario: 6,
+        usuario: "Borja",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Implementación",
+        fecha_inicio: "2025-11-19",
+        fecha_fin: "2025-11-19",
+        horas: 4,
+        detalle: "Deploy en ambiente Staging"
+    },
+    {
+        id_tarea: 27,
+        id_usuario: 6,
+        usuario: "Borja",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Análisis",
+        fecha_inicio: "2025-11-20",
+        fecha_fin: "2025-11-20",
+        horas: 8,
+        detalle: "Análisis de usabilidad (UX/UI)"
+    },
+    {
+        id_tarea: 28,
+        id_usuario: 6,
+        usuario: "Borja",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Desarrollo",
+        fecha_inicio: "2025-11-25",
+        fecha_fin: "2025-11-25",
+        horas: 8,
+        detalle: "Implementación de diseño responsivo"
+    },
+    {
+        id_tarea: 29,
+        id_usuario: 6,
+        usuario: "Borja",
+        centro_de_costo: "IT",
+        proyecto: "Alfa",
+        tarea: "Desarrollo",
+        fecha_inicio: "2025-11-26",
+        fecha_fin: "2025-11-26",
+        horas: 8,
+        detalle: "Ajustes de accesibilidad"
     }
+    // --- FIN DE NUEVAS TAREAS ---
 ];
 
 // Estado del calendario
@@ -159,7 +470,7 @@ function renderCalendar(year, month) {
 
             // Eventos del día
             const dateString = formatDate(dayData.year, dayData.month, dayData.day);
-            const tasks = getTasksForDate(dateString);
+            const tasks = getTasksForDate(dateString).filter(task => task.id_usuario === 1 || task.id_usuario === 0);
 
             if (tasks.length > 0) {
                 const eventsDiv = document.createElement('div');
