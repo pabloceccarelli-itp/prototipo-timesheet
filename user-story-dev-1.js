@@ -222,5 +222,12 @@ function processCommand(text) {
         }
     }
 
+	// Intentar procesar consulta de líder: horas por colaborador/proyecto/semana
+	if (typeof processLeaderHoursCommand === 'function') {
+		if (processLeaderHoursCommand(text)) {
+			return true;
+		}
+	}
+
     return false;
 }

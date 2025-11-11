@@ -528,9 +528,11 @@ function updateHoursSummary(year, month) {
     // Calcular horas cargadas en el mes
     for (let day = 1; day <= daysInMonth; day++) {
         const dateString = formatDate(year, month, day);
-        const tasks = getTasksForDate(dateString);
+        const tasks = getTasksForDate(dateString)
+            .filter(task => task.id_usuario === 1);
+    
         totalHours += tasks.reduce((sum, task) => sum + task.horas, 0);
-    }
+    }    
 
     // Calcular horas laborables (días laborables * 8 horas)
     let laborableDays = 0;
