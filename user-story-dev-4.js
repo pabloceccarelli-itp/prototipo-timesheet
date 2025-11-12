@@ -152,7 +152,7 @@ function processDeleteCommand(text) {
     if (deleteAll) {
         // Buscar todas las tareas en las fechas especificadas
         const tasksToDelete = tasksDatabase.filter(task => 
-            deleteAll.fechas.includes(task.fecha_inicio) && task.horas > 0
+            deleteAll.fechas.includes(task.fecha_inicio) && task.horas > 0 && task.id_usuario==1
         );
         
         if (tasksToDelete.length === 0) {
