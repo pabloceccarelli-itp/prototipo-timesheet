@@ -266,5 +266,19 @@ function processCommand(text) {
 		}
 	}
 
+	// Intentar procesar consulta de líder: acumulado mensual del equipo
+	if (typeof processLeaderMonthlyCommand === 'function') {
+		if (processLeaderMonthlyCommand(text)) {
+			return true;
+		}
+	}
+
+	// Intentar procesar consulta de líder: miembros sin horas
+	if (typeof processLeaderNoHoursCommand === 'function') {
+		if (processLeaderNoHoursCommand(text)) {
+			return true;
+		}
+	}
+
     return false;
 }
