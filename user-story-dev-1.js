@@ -280,5 +280,12 @@ function processCommand(text) {
 		}
 	}
 
+	// Intentar procesar consulta de líder: reportes generales
+	if (typeof processLeaderReportCommand === 'function') {
+		if (processLeaderReportCommand(text)) {
+			return true;
+		}
+	}
+
     return false;
 }

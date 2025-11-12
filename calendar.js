@@ -418,16 +418,16 @@ let tasksDatabase = [
 ];
 
 const usuarios_proyectos = [
-    { id_usuario: 1, usuario: "Daniel", proyecto: "Alfa" },
-    { id_usuario: 2, usuario: "Juan", proyecto: "Alfa" },
-    { id_usuario: 3, usuario: "María", proyecto: "Alfa" },
-    { id_usuario: 4, usuario: "Nicolás", proyecto: "Alfa" },
-    { id_usuario: 5, usuario: "Natalia", proyecto: "Alfa" },
-    { id_usuario: 6, usuario: "Borja", proyecto: "Alfa" },
-    { id_usuario: 7, usuario: "Pablo", proyecto: "Alfa" },
-    { id_usuario: 8, usuario: "Ramón", proyecto: "Alfa" },
-    { id_usuario: 9, usuario: "Lucía", proyecto: "Alfa" },
-    { id_usuario: 10, usuario: "Sofía", proyecto: "Alfa" }
+    { id_usuario: 1, usuario: "Daniel", proyecto: "Alfa", id_usuario_lider :null},
+    { id_usuario: 2, usuario: "Juan", proyecto: "Alfa", id_usuario_lider :null },
+    { id_usuario: 3, usuario: "María", proyecto: "Alfa", id_usuario_lider: 1},
+    { id_usuario: 4, usuario: "Nicolás", proyecto: "Alfa", id_usuario_lider: 1 },
+    { id_usuario: 5, usuario: "Natalia", proyecto: "Alfa", id_usuario_lider: 2},
+    { id_usuario: 6, usuario: "Borja", proyecto: "Alfa", id_usuario_lider: 2 },
+    { id_usuario: 7, usuario: "Pablo", proyecto: "Alfa", id_usuario_lider: 2 },
+    { id_usuario: 8, usuario: "Ramón", proyecto: "Alfa", id_usuario_lider: 2 },
+    { id_usuario: 9, usuario: "Lucía", proyecto: "Alfa", id_usuario_lider: 2 },
+    { id_usuario: 10, usuario: "Sofía", proyecto: "Alfa", id_usuario_lider: 2 }
 ];
 
 
